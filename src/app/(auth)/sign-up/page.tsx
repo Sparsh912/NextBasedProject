@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button"
 
 
 
-function page() {
+const Signup = () => {
 
   const [username, setUsername] = useState('')
   const [usernameMessage, setUsernameMessage] = useState('')
@@ -204,4 +204,4 @@ function page() {
   )
 }
 
-export default page
+export default Signup
