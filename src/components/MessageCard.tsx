@@ -1,11 +1,10 @@
 'use client'
 
 import React from 'react'
-
+import dayjs from 'dayjs'
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -33,13 +32,13 @@ type MessageCardProps = {
     onMessageDelete: (messageId: string) => void;
 }
 
-const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
+export default function MessageCard({ message, onMessageDelete }: MessageCardProps){
 
     const handleDeleteConfirm = async () => {
         try {
-            const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
+            const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id.toString()}`);
             toast.success(response.data.message);
-            onMessageDelete(message._id);
+            onMessageDelete(message._id.toString());
         } catch (error: any) {
             toast.error(error.response?.data?.message || "Failed to delete message.");
         }
@@ -75,7 +74,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
                 </div>
                 
                 <div className="text-sm">
-                    {/* {dayjs(message.createdAt).format('MMM D, YYYY h:mm A')} */}
+                    {dayjs(message.createdAt).format('MMM D, YYYY h:mm A')}
                 </div>
             </CardHeader>
             <CardContent>
@@ -84,4 +83,3 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     )
 }
 
-export default MessageCard
